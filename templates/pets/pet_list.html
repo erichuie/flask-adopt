@@ -4,5 +4,21 @@
 
 {% block content %}
 
+<ul class="list-group">
+{% for pet in pets %}
+  <li>
+      <img class="img-fluid col-4" src="{{pet.photo_url}}">
+      {% if pet.available %}
+        <p>
+          <a href="/{{pet.id}}">{{pet.name}}</a> is
+          <span class= "fw-bold">Available</span>
+        </p>
+      {% else %}
+        <p><a href="/{{pet.id}}">{{pet.name}}</a></p>
+      {% endif %}
+  </li>
+{% endfor %}
+</ul>
+
 
 {% endblock %}

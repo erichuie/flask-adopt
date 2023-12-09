@@ -32,3 +32,6 @@ def show_pets():
 
     return render_template("/pets/pet_list.html", pets=pets)
 
+@app.route("/add", methods=["GET","POST"])
+def add_pet_form():
+    ...
