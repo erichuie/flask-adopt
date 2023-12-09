@@ -61,6 +61,23 @@ def add_pet_form():
         return redirect("/")
 
     else:
-        return render_template("/pets/add_pet_form.html")
+        return render_template("/pets/add_pet_form.html",
+                               form=form)
+@app.route("/<int:pet_id>")
+def edit_pet_page(pet_id):
+    pet = Pet.query.get_or_404(pet_id)
 
+    form = EditPetForm()
 
+    if form.validate_on_submit():
+        pet.photo_url = form.photo_url.data
+        pet.notes = form.notes.data
+        pet.available = form.available.data
+
+        db.session.commit()
+        flash(f"{pet.name} updated")
+        redirect("/")
+    else:
+        return render_template("/pets/edit_pet_form.html",
+                               form=form,
+                               pet=pet)
